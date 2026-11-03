@@ -16,6 +16,8 @@ jobs:
           rm -rf lib && cp -r /tmp/keep/lib lib && cp /tmp/keep/pubspec.yaml pubspec.yaml
           M=android/app/src/main/AndroidManifest.xml
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/><uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/><uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/><application android:usesCleartextTraffic="true"#' $M
+      - name: Set minSdk
+        run: sed -i 's/flutter.minSdkVersion/24/' android/app/build.gradle*
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
